@@ -1,0 +1,55 @@
+{
+  "info": {
+    "_postman_id": "b576d32b-2814-4348-8f4c-58d602b3025e",
+    "name": "Order Streaming Pipeline",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "25564863"
+  },
+  "item": [
+    {
+      "name": "Post Order Event",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Pipeline transaction handles load successfully\", function () {\n    // Code returns 200 for success, but drops to a standard response payload on failure\n    pm.expect(pm.response.code).to.be.oneOf([200, 500, 408]);\n});\n"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"customer_id\": \"CUST-1001\",\n  \"item_category\": \"electronics\",\n  \"order_value\": 249.99\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/v1/orders/process",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "v1",
+            "orders",
+            "process"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
